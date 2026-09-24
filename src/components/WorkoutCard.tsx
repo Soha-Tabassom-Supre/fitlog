@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Workout } from "@/types/workout";
+import Link from "next/link";
 
 interface WorkoutCardProps {
   workout: Workout;
@@ -35,10 +36,10 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
           <p>🔥 {workout.caloriesBurned} calories</p>
           <p>⭐ {workout.rating}</p>
         </div>
-
-        <div className="card-actions justify-end mt-3">
-          <button className="btn btn-primary">View Details</button>
-        </div>
+       
+         <Link href={`/workouts/${workout.id}`} className="btn btn-primary">
+          View Details
+        </Link>
       </div>
     </div>
   );
