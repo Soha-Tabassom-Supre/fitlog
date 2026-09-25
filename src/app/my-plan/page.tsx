@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-
+import { useToast } from "@/context/ToastContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -16,6 +16,7 @@ type Tab = "today" | "saved";
 export default function MyPlanPage() {
   const { plan, removeFromPlan } = usePlan();
   const { favorites, toggleFavorite } = useFavorites();
+  const { showToast } = useToast();
 
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeTab, setActiveTab] = useState<Tab>("today");
@@ -71,24 +72,26 @@ export default function MyPlanPage() {
     0,
   );
 
-  const toggleCompleted = (id: number) => {
-    setCompleted((current) => {
-      if (current.includes(id)) {
-        return current.filter((item) => item !== id);
-      }
+ const toggleCompleted = (id: number) => {
+   setCompleted((current) => {
+     if (current.includes(id)) {
+       showToast("Workout marked as not done");
+       return current.filter((item) => item !== id);
+     }
 
-      return [...current, id];
-    });
-  };
-
-  const handleRemove = (workout: Workout) => {
-    if (activeTab === "today") {
-      removeFromPlan(workout.id);
-    } else {
-      toggleFavorite(workout.id);
-    }
-  };
-
+     showToast("Workout marked as done");
+     return [...current, id];
+   });
+ };
+ const handleRemove = (workout: Workout) => {
+   if (activeTab === "today") {
+     removeFromPlan(workout.id);
+     showToast(`${workout.name} removed from today's plan`);
+   } else {
+     toggleFavorite(workout.id);
+     showToast(`${workout.name} removed from saved`);
+   }
+ };
   return (
     <>
       <Navbar />
