@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getWorkout } from "@/lib/api";
 import Navbar from "@/components/Navbar";
+import WorkoutActions from "@/components/WorkoutActions";
 
 interface WorkoutDetailsPageProps {
   params: Promise<{
@@ -28,6 +29,7 @@ export default async function WorkoutDetailsPage({
 
           <div className="bg-base-100 rounded-3xl shadow-xl overflow-hidden">
             <div className="grid lg:grid-cols-2">
+        
               <div className="relative h-72 sm:h-96 lg:h-auto lg:min-h-[560px]">
                 <Image
                   src={workout.image}
@@ -46,7 +48,6 @@ export default async function WorkoutDetailsPage({
                   </span>
                 </div>
 
-
                 <div className="absolute bottom-5 left-5 right-5">
                   <p className="text-white/80 text-sm">
                     Build strength • Stay consistent
@@ -54,9 +55,8 @@ export default async function WorkoutDetailsPage({
                 </div>
               </div>
 
-              
+           
               <div className="p-6 sm:p-8 lg:p-10">
-
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex items-center gap-1">
                     <span className="text-yellow-500 text-xl">★</span>
@@ -70,12 +70,10 @@ export default async function WorkoutDetailsPage({
                   </span>
                 </div>
 
-                
                 <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
                   {workout.name}
                 </h1>
 
-              
                 <div className="flex flex-wrap gap-2 mt-5">
                   {workout.muscleGroups.map((muscle) => (
                     <span
@@ -91,6 +89,10 @@ export default async function WorkoutDetailsPage({
                   {workout.description}
                 </p>
 
+          
+                <WorkoutActions workoutId={workout.id} />
+
+            
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
                   <div className="bg-base-200 rounded-2xl p-4 text-center hover:bg-base-300 transition">
                     <div className="text-2xl mb-1">⏱️</div>
@@ -117,6 +119,7 @@ export default async function WorkoutDetailsPage({
                   </div>
                 </div>
 
+      
                 <div className="mt-6 flex items-center gap-4 bg-base-200 rounded-2xl p-4 sm:p-5">
                   <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-2xl">
                     🏋️
@@ -133,6 +136,7 @@ export default async function WorkoutDetailsPage({
               </div>
             </div>
 
+    
             <div className="border-t border-base-300 p-6 sm:p-8 lg:p-10">
               <div className="max-w-4xl">
                 <div className="mb-7">
@@ -167,6 +171,7 @@ export default async function WorkoutDetailsPage({
             </div>
           </div>
 
+         
           <div className="text-center mt-8 pb-4">
             <p className="text-base-content/60 text-sm mb-3">
               Ready for your next exercise?
