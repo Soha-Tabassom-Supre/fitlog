@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import { FavoritesProvider } from "@/context/FavoritesContext";
+import { PlanProvider } from "@/context/PlanContext";
 export const metadata: Metadata = {
-  title: "FitLog — Workout Library",
-  description: "Train with intent.",
+  title: "FitLog",
+  description: "Workout tracking app",
 };
 
 export default function RootLayout({
@@ -13,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <FavoritesProvider>
+          <PlanProvider>{children}</PlanProvider>
+        </FavoritesProvider>
+      </body>
     </html>
   );
 }
